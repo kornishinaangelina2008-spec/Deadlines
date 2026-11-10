@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Новый дедлайн</h1>
+<form method="POST">
+    <label>Предмет</label>
+    <input type="text" name="subject" required>
+
+    <label>Задание</label>
+    <textarea name="task" rows="3" required></textarea>
+
+    <label>Сдать до</label>
+    <input type="date" name="due_date" required>
+
+    <button class="btn" type="submit">Сохранить</button>
+</form>
+<p><a href="/">← Назад</a></p>
+{% endblock %}
