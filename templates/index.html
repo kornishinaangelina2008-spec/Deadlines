@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>📚 Дедлайны группы</h1>
+<a class="btn" href="/add">+ Добавить дедлайн</a>
+
+<div style="margin-top: 24px;">
+    {% if not items %}
+        <p>Пока пусто. Добавь первый дедлайн!</p>
+    {% endif %}
+
+    {% for item in items %}
+        <div class="card {% if item.overdue %}overdue{% elif item.days_left <= 3 %}soon{% endif %}">
+            <strong>{{ item.subject }}</strong> — {{ item.task }}<br>
+            <small>Сдать до: {{ item.due_date }}</small><br>
+
+            {% if item.overdue %}
+                <span class="badge badge-red">Просрочено</span>
+            {% elif item.days_left == 0 %}
+                <span class="badge badge-orange">Сегодня!</span>
+            {% elif item.days_left <= 3 %}
+                <span class="badge badge-orange">Осталось {{ item.days_left }} дн.</span>
+            {% else %}
+                <span class="badge badge-green">Осталось {{ item.days_left }} дн.</span>
+            {% endif %}
+
+            <br><a class="del" href="/delete/{{ item.id }}">удалить</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
